@@ -1,0 +1,658 @@
+<html>
+<head>
+<title>Dino Game</title>
+<link rel="icon" type="image/png" href="logito.png">
+</head>
+<body>
+<div style="position: absolute; margin-top: -37%; margin-left: 90%; border: solid; width:125px; height: 100px;">
+<input type="text" name="x" value="↑" style="width: 15px;">
+<label for="x">para saltar</label>
+<br>
+<input type="text" name="w" value="↓" style="width: 15px;">
+<label for="w">para agacharte</label>
+</div>
+<img src="nube.png" id="nube1" style="margin-top: -200px; margin-left: 1450px; width: 80px; height: 50px; position:absolute;">
+<img src="nube.png" id="nube2" style="margin-top: -150px; margin-left: 1450px; width: 80px; height: 50px; position:absolute;">
+<img src="estatico.png" id="dino" style="margin-top: -65px; margin-left: 0px; width: 50px; height: 65px;">
+<img src="cactusun.png" id="bloqueo" style="margin-top: -60px; margin-left: 1370px;">
+<img src="cactusgrupo.png" id="bloqueo2" style="margin-top: -40px; margin-left: 1450px;">
+<img src="cactoschico.png" id="bloqueo3" style="margin-top: -40px; margin-left: 1550px;">
+<img src="alasup.png" id="bloqueo4" style="margin-top: -64px; margin-left: 1650px;">
+<div id="piso"></div>
+<input type="button" onkeydown="salto(event)" onkeyup="levantar(event)" onclick="ih()" id="inicio" value="START">
+<input type="button" hidden onclick="zar()" id="simon">
+<input type="button" hidden onclick="animacion()" id="botonon">
+<input type="button" hidden onclick="ah()" id="botonono">
+<input type="button" hidden onclick="eh()" id="botononon">
+<input type="button" hidden onclick="uh()" id="botononono">
+<input type="button" hidden onclick="oh()" id="botonononon">
+<input type="button" hidden onclick="gi()" id="botonononono">
+<input type="button" hidden onclick="mil()" id="botononononon">
+<input type="button" hidden onclick="mal()" id="botononononono">
+<input type="button" hidden onclick="siu()" id="botonononononon">
+<input type="button" hidden onclick="ars()" id="botonononononono">
+<input type="button" hidden onclick="usd()" id="botononononononon">
+<input type="button" onclick="nobro()" id="skins" value="Skins">
+<div id="skins_contenido">
+<p id="skins_salir" style="width: 10px; height: 10px; background-color: blue; border: solid;" onclick="skin_salir()">x</p>
+<h1 style="text-align: center;">Skins</h1>
+<div id="dinosaurio" onclick="cambiar_personaje()"></div>
+<div id="prueba" onclick="cambiar_personaje_sus()"></div>
+</div>
+<p id="parrafo">hola</p>
+<div style="position: absolute; margin-left: 130px; margin-top: -95px; width: 200px;">
+<div>
+<input type="radio" id="huey" name="drone" value="huey" checked onclick="facil()">
+<label for="huey">Facil</label>
+</div>
+<div>
+<input type="radio" id="dewey" name="drone" value="dewey" onclick="dificil()">
+<label for="dewey">Dificil</label>
+</div>
+<div>
+<input type="radio" id="lluvia" name="drone" value="lluvia" onclick="imposible()">
+<label for="lluvia">Imposible</label>
+</div>
+</div>
+<b><p id="puntaje">Puntaje: 0</p></b>
+<b><p id="best">Mejor puntaje: 0</p></b>
+<p style="position: absolute; margin-top: -100px; margin-left: 400px;"><b>Nota: </b>cuando el dino se choca con un cactus, hay veces que no lo toca.</p>
+<style>
+#skins{
+position: absolute;
+margin-top: -20px;
+margin-left: 900px;
+}
+#skins_contenido{
+display: none;
+position: absolute;
+width: 500px;
+height: 400px;
+background-color: red;
+margin-top: -500px;
+margin-left: 500px;
+}
+#prueba{
+width: 100px;
+height: 100px;
+background-color: green;
+margin-left: 50px;
+margin-top: 40px;
+}
+#dinosaurio{
+width: 100px;
+height: 100px;
+background-color: orange;
+margin-left: 50px;
+margin-top: 40px;
+}
+#inicio{
+border: solid;
+color: blue;
+background-color: lightblue;
+width: 100px;
+height: 50px;
+font-weight:  bolder;
+cursor: hand;
+}
+#piso{
+width: 130%;
+height: 30px;
+border-top: solid black 0.5px;
+margin-top: 40%;
+}
+#puntaje{
+position: absolute;
+font-size: 60px;
+margin-top: -47%;
+}
+#best{
+position: absolute;
+font-size: 20px;
+margin-top: -41%;
+}
+#bloqueo{
+width: 40px;
+height: 60px;
+position: absolute;
+}
+#bloqueo2{
+width: 80px;
+height: 40px;
+position: absolute;
+}
+#bloqueo3{
+width: 20px;
+height: 40px;
+position: absolute;
+}
+#bloqueo4{
+width: 40px;
+height: 15px;
+position: absolute;
+}
+body{
+margin: 0;
+}
+#dino{
+position: absolute;
+}
+</style>
+<script type="text/javascript">
+var inicio = document.getElementById("inicio");
+var simon = document.getElementById("simon");
+var botonon = document.getElementById("botonon");
+var botonono = document.getElementById("botonono");
+var botononon = document.getElementById("botononon");
+var botononono = document.getElementById("botononono");
+var botonononon = document.getElementById("botonononon");
+var botonononono = document.getElementById("botonononono");
+var botononononon = document.getElementById("botononononon");
+var botononononono = document.getElementById("botononononono");
+var botonononononon = document.getElementById("botonononononon");
+var botonononononono = document.getElementById("botonononononono");
+var botononononononon = document.getElementById("botononononononon");
+var puntaje = document.getElementById("puntaje");
+var mejor = document.getElementById("best");
+var dino = document.getElementById("dino");
+var bloqueo = document.getElementById("bloqueo");
+var bloqueo2 = document.getElementById("bloqueo2");
+var bloqueo3 = document.getElementById("bloqueo3");
+var bloqueo4 = document.getElementById("bloqueo4");
+var nube1 = document.getElementById("nube1");
+var nube2 = document.getElementById("nube2");
+var palabra = document.getElementById("parrafo");
+var ko = bloqueo.style.marginLeft;
+var ol = bloqueo.style.marginLeft;
+console.log(ol);
+ol.split("px");
+var m = parseInt(ol);
+var il = bloqueo2.style.marginLeft;
+console.log(il);
+il.split("px");
+var ji = parseInt(il);
+var ak = bloqueo3.style.marginLeft;
+console.log(ak);
+ak.split("px");
+var kate = parseInt(ak);
+var am = bloqueo4.style.marginLeft;
+console.log(am);
+am.split("px");
+var kia = parseInt(am);
+var bit = nube1.style.marginLeft;
+console.log(bit);
+bit.split("px");
+var luna = parseInt(bit);
+var siuu = nube2.style.marginLeft;
+console.log(siuu);
+siuu.split("px");
+var solana = parseInt(siuu);
+var al = dino.style.marginTop;
+console.log(al);
+al.split("px");
+var o = parseInt(al);
+var el = dino.style.marginLeft;
+console.log(el);
+el.split("px");
+var s = parseInt(el);
+var e = 1;
+var se = true;
+var mas = 0;
+var como = false;
+var zor = false;
+var oil = false;
+var coco = true;
+var coca = true;
+var coce = true;
+var cocu = true;
+var bait = true;
+var necesario = false;
+var pun = 0;
+var estado = 0;
+var estado1 = 0;
+var estado2 = 0;
+var estado3 = 0;
+const cambio1_sus = "adelante_sus.png";
+const cambio2_sus = "atras_sus.png";
+const cambio3_sus = "uh_sus.png";
+const defecto_sus = "estatico_sus.png";
+const agachado1_sus = "agachado_sus.png";
+const agachado2_sus = "agachado_sus.png";
+const cambio1_dino = "adelante.png";
+const cambio2_dino = "atras.png";
+const cambio3_dino = "uh.png";
+const defecto_dino = "estatico.png";
+const agachado1_dino = "agachado1.png";
+const agachado2_dino = "agachado2.png";
+var cambio1 = cambio1_dino;
+var cambio2 = cambio2_dino;
+var cambio3 = cambio3_dino;
+var defecto = defecto_dino;
+var agachado1 = agachado1_dino;
+var agachado2 = agachado2_dino;
+var alasup = "alasup.png";
+var alasdown = "alasdown.png";
+var otrocontador = 1;
+var otrocontadorx2 = 1;
+var otrocontadorx3 = 1;
+var sas = 5;
+var logo = 1000;
+var best = 0;
+var noxd = 2;
+function ih(){
+if(como == false){
+	if(pun >= best){
+		best = pun;
+		mejor.innerHTML = "Mejor puntaje: " + best;
+	}
+	pun = 0;
+	dino.src = defecto;
+	var pilco = "Puntaje: " + pun;
+	puntaje.innerHTML = pilco;
+	var pok = botonon.click();
+	var pak = botononon.click();
+	var pik = botonononon.click();
+	var puk = botonononono.click();
+	var pek = botonononononon.click();
+	var tisa = botonononononono.click();
+	var tiso = botononononononon.click();
+}
+else{
+if(pun >= best){
+	best = pun;
+	mejor.innerHTML = "Mejor puntaje: " + best;
+}
+pun = 0;
+dino.src = defecto;
+var palco = "Puntaje: " + pun;
+puntaje.innerHTML = palco;
+bloqueo.style.marginLeft= 1370;
+m = 1370;
+bloqueo2.style.marginLeft= 1450;
+ji = 1450;
+bloqueo3.style.marginLeft= 1550;
+kate = 1550;
+bloqueo4.style.marginLeft= 1650;
+kia = 1650;
+nube1.style.marginLeft= 1450;
+luna = 1450;
+nube2.style.marginLeft= 1450;
+solana = 1450;
+o = -65;
+dino.style.marginTop = o;
+e = 1;
+se = true;
+mas = 0;
+como = false;
+zor = false;
+oil = false;
+coco = true;
+coca = true;
+coce = true;
+cocu = true;
+bait = true;
+necesario = false;
+estado = 0;
+estado1 = 0;
+estado2 = 0;
+estado3 = 0;
+botonon.click();
+botononononononon.click();
+botonononononono.click();
+}
+}
+function uh(){
+	var f = setInterval(jijiju, 1);
+    function jijiju(){
+	m-=noxd;
+//https://www.spriters-resource.com/browser_games/googledinosaurrungame/sheet/78171/
+	bloqueo.style.marginLeft = m;
+	if(m > -40 && m <= 50 && o > -125 || oil == true){
+		clearInterval(f);
+		oil = true;
+	}
+	if(m == -50){
+		bloqueo.style.marginLeft= 1370;
+		m = 1370;
+		pun++;
+		var puntos = "Puntaje: " + pun;
+		puntaje.innerHTML = puntos;
+		coco = true;
+		clearInterval(f);
+	}
+}
+}
+function ah(){
+	var kanto = setInterval(activo, 1);
+    function activo(){
+	ji-=noxd;
+	bloqueo2.style.marginLeft = ji;
+	if(ji > -80 && ji <= 40 && o > -105 || oil == true){
+		clearInterval(kanto);
+		oil = true;
+		
+	}
+	if(ji == -70){
+		bloqueo2.style.marginLeft= 1450;
+		ji = 1450;
+		pun++;
+		var puntos = "Puntaje: " + pun;
+		puntaje.innerHTML = puntos;
+		coca = true;
+		clearInterval(kanto);
+	}
+}
+}
+
+function mil(){
+	sas *= 2;
+	var malta = setInterval(jijija, 1);
+    function jijija(){
+	kate-=noxd;
+	bloqueo3.style.marginLeft = kate;
+	if(kate > -20 && kate <= 50 && o > -105 || oil == true){
+		clearInterval(malta);
+		oil = true;
+		
+	}
+	if(kate == -70){
+		bloqueo3.style.marginLeft= 1550;
+		kate = 1550;
+		pun++;
+		var puntos = "Puntaje: " + pun;
+		puntaje.innerHTML = puntos;
+		coce = true;
+		clearInterval(malta);
+	}
+}
+}
+function mal(){
+	var malto = setInterval(jijiji, 1);
+    function jijiji(){
+	kia-=noxd;
+	bloqueo4.style.marginLeft = kia;
+	if(kia > -20 && kia <= 50 && necesario == false || oil == true || m > -40 && m <= 20 && o > -125){
+		clearInterval(malto);
+		oil = true;
+	}
+	if(kia == -70){
+		bloqueo4.style.marginLeft= 1650;
+		kia = 1650;
+		pun++;
+		var puntos = "Puntaje: " + pun;
+		puntaje.innerHTML = puntos;
+		cocu = true;
+		clearInterval(malto);
+	}
+}
+}
+
+function ars(){
+	var malu = setInterval(kaio, 1);
+    function kaio(){
+	luna--;
+	nube1.style.marginLeft = luna;
+	if(luna == -70){
+		nube1.style.marginLeft= 1450;
+		luna = 1450;
+	}
+	if(oil == true){
+		clearInterval(malu);
+	}
+}
+}
+function usd(){
+	var maio = setInterval(kaia, 1);
+    function kaia(){
+	solana--;
+	nube2.style.marginLeft = solana;
+	if(solana == -70){
+		nube2.style.marginLeft= 1450;
+		solana = 1450;
+	}
+	if(oil == true){
+		clearInterval(maio);
+	}
+}
+}
+
+function salto(event){
+var x = event.key;
+if(x == "ArrowUp" && bait == true){
+necesario = true;
+bait = false;
+mas = 1;
+var si =setInterval(hola, 6);
+function hola(){
+if(o >= -199 && e == 1){
+o-=2;
+dino.style.marginTop = o ;
+palabra.innerHTML = o;
+if(o == -201){
+	e = 2;
+}
+}
+if(o <= -67 && e == 2){
+	o+=2;
+    dino.style.marginTop = o ;
+    palabra.innerHTML = o;
+	if(o == -65){
+		e = 3;
+	}
+}
+if(e == 3){
+clearInterval(si);
+mas = 0;
+bait = true;
+necesario = false;
+}
+if(oil == true){
+clearInterval(si);
+}
+}
+console.log("si");
+e = 1;
+}
+if(x == "ArrowDown" && bait == true && oil == false){
+bait = false;
+necesario = true;
+console.log(necesario);
+mas = 2;
+dino.style.marginTop = -40;
+dino.style.width = 65;
+dino.style.height = 40;
+}
+}
+
+function levantar(event){
+	var ho = event.key;
+	if(ho == "ArrowDown" && bait == false){
+	bait = true;
+	necesario = false;
+	mas = 0;
+	dino.style.marginTop= -65;
+	dino.style.width = 50;
+	dino.style.height = 65;
+	}
+}
+
+function animacion(){
+var mon = setInterval(clock, 100);
+	function clock(){
+	if(mas == 0){
+	otrocontador++;
+	if(otrocontador % 2 == 0){
+		dino.src = cambio1;
+	}
+	else{
+		dino.src = cambio2;
+	}
+	}
+	if(mas == 1){
+	dino.src = defecto;
+	}
+	if(mas == 2){
+	otrocontadorx2++;
+	if(otrocontadorx2 % 2 == 0){
+		dino.src = agachado1;
+	}
+	else{
+		dino.src = agachado2;
+	}
+	}
+	if(oil == true){
+		clearInterval(mon);
+		dino.src = cambio3;
+		como = true;
+	}
+	otrocontadorx3++;
+	if(otrocontadorx3 % 2 == 0){
+		bloqueo4.src = alasup;
+	}
+	else{
+		bloqueo4.src = alasdown;
+	}
+	}
+}
+
+function eh(){
+	var toy = setInterval(io,1000);
+	function io(){
+	const si = Math.random();
+	if(si > 0.5){
+		estado = 1;
+	}
+	else{
+		estado = 0;
+	}
+	if(estado == 1 && coco == true && zor == false){
+		var toko = botononono.click();
+		coco = false;
+		zor = true;
+		simon.click();
+	}
+}
+}
+
+function oh(){
+	var gol = setInterval(ia,1000);
+	function ia(){
+	const pio = Math.random();
+	if(pio > 0.5){
+		estado1 = 1;
+	}
+	else{
+		estado1 = 0;
+	}
+	if(estado1 == 1 && coca == true && zor == false){
+		var toka = botonono.click();
+		coca = false;
+		zor = true;
+		simon.click();
+	}
+}
+}
+
+function gi(){
+	var gal = setInterval(iu,1000);
+	function iu(){
+	const pia = Math.random();
+	if(pia > 0.5){
+		estado2 = 1;
+	}
+	else{
+		estado2 = 0;
+	}
+	if(estado2 == 1 && coce == true && zor == false){
+		var tika = botononononon.click();
+		coce = false;
+		zor = true;
+		simon.click();
+	}
+}
+}
+
+function siu(){
+	var hash = setInterval(lmao,1000);
+	function lmao(){
+	const piol = Math.random();
+	if(piol > 0.5){
+		estado3 = 1;
+	}
+	else{
+		estado3 = 0;
+	}
+	if(estado3 == 1 && cocu == true && zor == false){
+		var tiki = botononononono.click();
+		cocu = false;
+		zor = true;
+		simon.click();
+	}
+}
+}
+
+function zar(){
+	var sitio = setTimeout(millon,logo);
+	function millon(){
+		zor = false;
+		clearTimeout(sitio);
+	}
+}
+
+function facil(){
+	logo = 1000;
+	noxd = 2;
+}
+function dificil(){
+	logo = 500;
+	noxd = 2;
+}
+function imposible(){
+	logo = 500;
+	noxd = 5;
+}
+
+function nobro(){
+    var skin = document.getElementById("skins_contenido");
+    skin.style.display = "block";
+}
+
+function cambiar_personaje(){
+cambio1 = cambio1_dino;
+cambio2 = cambio2_dino;
+cambio3 = cambio3_dino;
+defecto = defecto_dino;
+agachado1 = agachado1_dino;
+agachado2 = agachado2_dino;
+
+dino.src = defecto_dino;
+}
+
+function cambiar_personaje_sus(){
+cambio1 = cambio1_sus;
+cambio2 = cambio2_sus;
+cambio3 = cambio3_sus;
+defecto = defecto_sus;
+agachado1 = agachado1_sus;
+agachado2 = agachado2_sus;
+
+dino.src = defecto_sus;
+}
+
+function skin_salir(){
+    var skin = document.getElementById("skins_contenido");
+    skin.style.display = "none";
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
