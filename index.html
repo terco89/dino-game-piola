@@ -38,6 +38,7 @@
 <h1 style="text-align: center;">Skins</h1>
 <div id="dinosaurio" onclick="cambiar_personaje()"></div>
 <div id="prueba" onclick="cambiar_personaje_sus()"></div>
+<div id="barney" onclick="cambiar_personaje_barney()"></div>
 </div>
 <p id="parrafo">hola</p>
 <div style="position: absolute; margin-left: 130px; margin-top: -95px; width: 200px;">
@@ -76,6 +77,13 @@ margin-left: 500px;
 width: 100px;
 height: 100px;
 background-color: green;
+margin-left: 50px;
+margin-top: 40px;
+}
+#barney{
+width: 100px;
+height: 100px;
+background-color: grey;
 margin-left: 50px;
 margin-top: 40px;
 }
@@ -212,6 +220,12 @@ var estado = 0;
 var estado1 = 0;
 var estado2 = 0;
 var estado3 = 0;
+const cambio1_barney = "adelante_barney.png";
+const cambio2_barney = "atras_barney.png";
+const cambio3_barney = "uh_barney.png";
+const defecto_barney = "estatico_barney.png";
+const agachado1_barney = "agachado_barney.png";
+const agachado2_barney = "agachado_barney.png";
 const cambio1_sus = "adelante_sus.png";
 const cambio2_sus = "atras_sus.png";
 const cambio3_sus = "uh_sus.png";
@@ -637,6 +651,17 @@ agachado1 = agachado1_sus;
 agachado2 = agachado2_sus;
 
 dino.src = defecto_sus;
+}
+
+function cambiar_personaje_barney(){
+cambio1 = cambio1_barney;
+cambio2 = cambio2_barney;
+cambio3 = cambio3_barney;
+defecto = defecto_barney;
+agachado1 = agachado1_barney;
+agachado2 = agachado2_barney;
+
+dino.src = defecto_barney;
 }
 
 function skin_salir(){
